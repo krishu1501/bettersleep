@@ -20,6 +20,8 @@ login_manager = LoginManager(app)
 login_manager.login_view = "login"
 login_manager.session_protection = "strong"
 
+# def get_app():
+#     return app
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
