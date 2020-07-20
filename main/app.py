@@ -144,7 +144,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/users')
-@login_required
+# @login_required
 def all_users():
     all_user = db.query.all()
     for i in all_user:
