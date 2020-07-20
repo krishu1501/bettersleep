@@ -110,8 +110,8 @@ while(fgh):
 
     endTimeMillis = int(round(time.time() * 1000))
     startTimeMillis = endTimeMillis - 1800000
-    # if gFit.is_sleeping(startTimeMillis, endTimeMillis, access_token):
-    if gFit.is_sleeping(1584157920000, 1584157920001, access_token):
+    # if gFit.is_sleeping(1584157920000, 1584157920001, access_token):
+    if gFit.is_sleeping(startTimeMillis, endTimeMillis, access_token):
       print("sleeping")
       i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 0) )
     else:
