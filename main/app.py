@@ -14,7 +14,7 @@ from requests.exceptions import HTTPError
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config.from_object(config['dev'])
+app.config.from_object(config['prod'])
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
@@ -142,6 +142,14 @@ def callback():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/users')
+@login_required
+def all_users():
+    all_user = db.query.all()
+    for i in all_user:
+        print(i.id,i.name)
+    
 
 
 # token = google.fetch_token(
