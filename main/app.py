@@ -7,7 +7,7 @@ from flask import Flask, render_template, url_for, redirect , request, session
 from flask_sqlalchemy import SQLAlchemy
 # from forms import RegistrationForm, LoginForm
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required ,UserMixin
-from config import config, Auth, Config, DevConfig, ProdConfig
+from .config import config, Auth, Config, DevConfig, ProdConfig
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import HTTPError
 
