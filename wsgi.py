@@ -1,6 +1,7 @@
 import os
-from main.app import app
+from main.app import create_app
 
+app = create_app()
 
 # app.secret_key = os.urandom(16)
 if __name__ == '__main__':

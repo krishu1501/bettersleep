@@ -11,7 +11,7 @@ import gFit
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config.from_object(config['prod'])
 db = SQLAlchemy(app)
 class User(db.Model, UserMixin):

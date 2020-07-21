@@ -19,6 +19,7 @@ class Auth:
 class Config:
     APP_NAME = "local host app"
     SECRET_KEY = os.environ.get("SECRET_KEY") or "somethingsecret"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevConfig(Config):
