@@ -7,25 +7,29 @@ from flask import request
 import json
 import requests
 import ast
-import gFit
+from . import gFit
+from .app import create_app
+from .models import db,User
 
+app = create_app()
+app.app_context().push()
 
-app = Flask(__name__)
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config.from_object(config['prod'])
-db = SQLAlchemy(app)
-class User(db.Model, UserMixin):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    name = db.Column(db.String(100), nullable=True)
-    avatar = db.Column(db.String(200))
-    active = db.Column(db.Boolean, default=True)
-    tokens = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow())
-    nodemcu = db.Column(db.Text, default='')
-    def __repr__(self):
-       return {'id':self.id,'email':self.email,'name':self.name,'avatar':self.avatar,'active':self.active,'token':self.tokens,'created at':self.created_at,'nodemcu':self.nodemcu}
+# app = Flask(__name__)
+# # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config.from_object(config['prod'])
+# db = SQLAlchemy(app)
+# class User(db.Model, UserMixin):
+#     __tablename__ = "users"
+#     id = db.Column(db.Integer, primary_key=True)
+#     email = db.Column(db.String(100), unique=True, nullable=False)
+#     name = db.Column(db.String(100), nullable=True)
+#     avatar = db.Column(db.String(200))
+#     active = db.Column(db.Boolean, default=True)
+#     tokens = db.Column(db.Text)
+#     created_at = db.Column(db.DateTime, default=datetime.utcnow())
+#     nodemcu = db.Column(db.Text, default='')
+#     def __repr__(self):
+#        return {'id':self.id,'email':self.email,'name':self.name,'avatar':self.avatar,'active':self.active,'token':self.tokens,'created at':self.created_at,'nodemcu':self.nodemcu}
 
 ####################### calling of refresh token function ###############################
 
@@ -112,10 +116,10 @@ while(fgh):
     startTimeMillis = endTimeMillis - 1800000
     # if gFit.is_sleeping(1584157920000, 1584157920001, access_token):
     if gFit.is_sleeping(startTimeMillis, endTimeMillis, access_token):
-      print("sleeping")
+      # print("sleeping")
       i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 0) )
     else:
-      print("Not sleeping")
+      # print("Not sleeping")
       i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 1) )
     
     i.tokens = str(tok)
