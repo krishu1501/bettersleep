@@ -10,6 +10,7 @@ from flask_login import LoginManager, login_user, current_user, logout_user, log
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import HTTPError
 from .config import config, Auth, Config, DevConfig, ProdConfig
+from .commands import create_tables
 
 
 def create_app():
