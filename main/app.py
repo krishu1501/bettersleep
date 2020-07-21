@@ -11,12 +11,24 @@ from requests_oauthlib import OAuth2Session
 from requests.exceptions import HTTPError
 from .config import config, Auth, Config, DevConfig, ProdConfig
 from .commands import create_tables
+from .models import db,User
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config['prod'])
+    db.init_app(app)
+    # login_manager.init_app(app)
+    login_manager = LoginManager(app)
+    login_manager.login_view = "login"
+    login_manager.session_protection = "strong"
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
     app.cli.add_command(create_tables)
+
     return app
 
 
@@ -24,33 +36,30 @@ def create_app():
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config.from_object(config['prod'])
 app = create_app()
-db = SQLAlchemy(app)
-login_manager = LoginManager(app)
-login_manager.login_view = "login"
-login_manager.session_protection = "strong"
+# db = SQLAlchemy(app)
+# login_manager = LoginManager(app)
+# login_manager.login_view = "login"
+# login_manager.session_protection = "strong"
 
 # def get_app():
 #     return app
 
-class User(db.Model, UserMixin):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    name = db.Column(db.String(100), nullable=True)
-    avatar = db.Column(db.String(200))
-    active = db.Column(db.Boolean, default=True)
-    tokens = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow())
-    nodemcu = db.Column(db.Text, default='')
+# class User(db.Model, UserMixin):
+#     __tablename__ = "users"
+#     id = db.Column(db.Integer, primary_key=True)
+#     email = db.Column(db.String(100), unique=True, nullable=False)
+#     name = db.Column(db.String(100), nullable=True)
+#     avatar = db.Column(db.String(200))
+#     active = db.Column(db.Boolean, default=True)
+#     tokens = db.Column(db.Text)
+#     created_at = db.Column(db.DateTime, default=datetime.utcnow())
+#     nodemcu = db.Column(db.Text, default='')
 
 # @login_manager.request_loader
 # def load_user_from_request(request):
 #     return redirect(url_for('login'))
 
-@login_manager.user_loader
-def load_user(user_id):
-    # print("WOOOOOOOOOOOOWOOOOOOOOOOOOOOWOOOOOOOOOO")
-    return User.query.get(int(user_id))
+
 
 def get_google_auth(state=None, token=None):
     if token:
