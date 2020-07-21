@@ -161,13 +161,21 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/mydata')
+@login_required
+def my_data():
+    user = User.query.filter_by(id=current_user.get_id()).first()
+    return User.__repr__(user)
+    
 @app.route('/users')
 # @login_required
 def all_users():
     all_user = User.query.all()
+    d = {'id': 'name'}
     for i in all_user:
-        print(i.id,i.name)
-    
+        d[i.id] = i.name
+    return str(d)
+
 
 
 # token = google.fetch_token(
