@@ -1,2 +1,2 @@
 web: gunicorn wsgi:app --preload 
-worker: python main.keep_checking
+worker: python -m main.keep_checking
