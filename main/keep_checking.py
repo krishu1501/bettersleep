@@ -75,18 +75,14 @@ def send_time(nodemcu,state):
   
 ########################   main_user_functn  ###############################
 
+def start():
 
-
-fgh=1
-while(fgh):
-  fgh=0
-  
-  all_user=User.query.all()
-  for i in all_user:
-    if not i.active:
-      continue
-      
-    try:
+	all_user=User.query.all()
+	for i in all_user:
+	if not i.active:
+	  continue
+	  
+	try:
 	    # print("i.nodemcu" , i.nodemcu)
 	    # print("i.created_at" , i.created_at)
 	    # print("i.tokens" , i.tokens)
@@ -140,5 +136,10 @@ while(fgh):
 	    db.session.add(i)
 	    db.session.commit()
 
-    except:
-    	continue
+	except:
+		continue
+
+if __name__=='__main__':
+	while(True):
+		start()
+		time.sleep(2700)
