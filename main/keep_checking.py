@@ -79,65 +79,65 @@ def start():
 
 	all_user=User.query.all()
 	for i in all_user:
-	if not i.active:
-	  continue
-	  
-	try:
-	    # print("i.nodemcu" , i.nodemcu)
-	    # print("i.created_at" , i.created_at)
-	    # print("i.tokens" , i.tokens)
-	    # tok = ast.literal_eval(i.tokens)
-	    # print("refresh_token" , tok["refresh_token"])
-	    # tok['refresh_token'] = '1//0gLCiGWGZiCcoCgYIARAAGBASNwF-L9IrBDx2rcyoZIyDuhTZqEcwgG7PUxz2xESgtgdxBaJ6WEACnoD9TmdZw7qr8qCBO7weiiI'
-	    # i.tokens = str(tok)
-	    # db.session.add(i)
-	    # db.session.commit()
-	    # print("access_token" , tok["access_token"])
-	    # print("refresh_token" , tok["refresh_token"])
+		if not i.active:
+		  continue
+		  
+		try:
+		    # print("i.nodemcu" , i.nodemcu)
+		    # print("i.created_at" , i.created_at)
+		    # print("i.tokens" , i.tokens)
+		    # tok = ast.literal_eval(i.tokens)
+		    # print("refresh_token" , tok["refresh_token"])
+		    # tok['refresh_token'] = '1//0gLCiGWGZiCcoCgYIARAAGBASNwF-L9IrBDx2rcyoZIyDuhTZqEcwgG7PUxz2xESgtgdxBaJ6WEACnoD9TmdZw7qr8qCBO7weiiI'
+		    # i.tokens = str(tok)
+		    # db.session.add(i)
+		    # db.session.commit()
+		    # print("access_token" , tok["access_token"])
+		    # print("refresh_token" , tok["refresh_token"])
 
-	    # if i.active:
-	    #   continue
-	    tok = ast.literal_eval(i.tokens)
-	    ctime = int(calendar.timegm(time.strptime(str(i.created_at), '%Y-%m-%d %H:%M:%S.%f')))
-	    # ctime = (int)((i.created_at).timestamp())
-	    # ctime is in sec
-	    # if atleat 15 min left to expire
-	    # print(int(round(time.time())))
-	    # print(ctime)
-	    # if i.active:
-	    #   continue
-	    if int(round(time.time())) - ctime < 2700 :
-	      # print('access_token not expired')
-	      access_token = tok["access_token"]
-	    else :
-	      # print('getting new access_token')
-	      access_token, refresh_token = new_access_token(tok["refresh_token"])
-	      i.created_at = datetime.utcnow()
-	      tok["access_token"] = access_token
-	      if refresh_token != tok["refresh_token"]:
-	        tok["refresh_token"] = refresh_token
+		    # if i.active:
+		    #   continue
+		    tok = ast.literal_eval(i.tokens)
+		    ctime = int(calendar.timegm(time.strptime(str(i.created_at), '%Y-%m-%d %H:%M:%S.%f')))
+		    # ctime = (int)((i.created_at).timestamp())
+		    # ctime is in sec
+		    # if atleat 15 min left to expire
+		    # print(int(round(time.time())))
+		    # print(ctime)
+		    # if i.active:
+		    #   continue
+		    if int(round(time.time())) - ctime < 2700 :
+		      # print('access_token not expired')
+		      access_token = tok["access_token"]
+		    else :
+		      # print('getting new access_token')
+		      access_token, refresh_token = new_access_token(tok["refresh_token"])
+		      i.created_at = datetime.utcnow()
+		      tok["access_token"] = access_token
+		      if refresh_token != tok["refresh_token"]:
+		        tok["refresh_token"] = refresh_token
 
-	    # print("access_token" , access_token)
-	    # print(i.created_at)
+		    # print("access_token" , access_token)
+		    # print(i.created_at)
 
-	    endTimeMillis = int(round(time.time() * 1000))
-	    startTimeMillis = endTimeMillis - 3600000
-	    # if gFit.is_sleeping(1584157920000, 1584157920001, access_token):
-	    if gFit.is_sleeping(startTimeMillis, endTimeMillis, access_token):
-	      # print("sleeping")
-	      i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 0) )
-	      send_time(ast.literal_eval(i.nodemcu), 'sleeping')
-	    else:
-	      # print("Not sleeping")
-	      i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 1) )
-	      send_time(ast.literal_eval(i.nodemcu), 'awake')
-	    
-	    i.tokens = str(tok)
-	    db.session.add(i)
-	    db.session.commit()
+		    endTimeMillis = int(round(time.time() * 1000))
+		    startTimeMillis = endTimeMillis - 3600000
+		    # if gFit.is_sleeping(1584157920000, 1584157920001, access_token):
+		    if gFit.is_sleeping(startTimeMillis, endTimeMillis, access_token):
+		      # print("sleeping")
+		      i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 0) )
+		      send_time(ast.literal_eval(i.nodemcu), 'sleeping')
+		    else:
+		      # print("Not sleeping")
+		      i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 1) )
+		      send_time(ast.literal_eval(i.nodemcu), 'awake')
+		    
+		    i.tokens = str(tok)
+		    db.session.add(i)
+		    db.session.commit()
 
-	except:
-		continue
+		except:
+			continue
 
 if __name__=='__main__':
 	while(True):
