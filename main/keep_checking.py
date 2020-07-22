@@ -63,6 +63,16 @@ def toggle_light(nodemcu, state):
   # print(resp.json())
   return nodemcu
 
+def send_time(nodemcu,state):
+	dt_now1 = datetime.now(tz=timezone(timedelta(hours=5.5)))
+	dt_now = dt_now1.strftime("%Y-%m-%d %H:%M:%S%z")
+	headers = {
+	'Content-Type': 'application/json'
+	}
+	payload = "{\"%s\":\"%s\"}" % (dt_now, state)
+	url = "%s/%s.json" % (nodemcu['url'][:-5], state)
+	resp = requests.patch(url=url, headers=headers, data=payload)
+  
 ########################   main_user_functn  ###############################
 
 
@@ -92,6 +102,7 @@ while(fgh):
     #   continue
     tok = ast.literal_eval(i.tokens)
     ctime = int(calendar.timegm(time.strptime(str(i.created_at), '%Y-%m-%d %H:%M:%S.%f')))
+    # ctime = (int)((i.created_at).timestamp())
     # ctime is in sec
     # if atleat 15 min left to expire
     # print(int(round(time.time())))
@@ -113,14 +124,16 @@ while(fgh):
     # print(i.created_at)
 
     endTimeMillis = int(round(time.time() * 1000))
-    startTimeMillis = endTimeMillis - 1800000
+    startTimeMillis = endTimeMillis - 3600000
     # if gFit.is_sleeping(1584157920000, 1584157920001, access_token):
     if gFit.is_sleeping(startTimeMillis, endTimeMillis, access_token):
       # print("sleeping")
       i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 0) )
+      send_time(ast.literal_eval(i.nodemcu), 'sleeping')
     else:
       # print("Not sleeping")
       i.nodemcu = str( toggle_light(ast.literal_eval(i.nodemcu), 1) )
+      send_time(ast.literal_eval(i.nodemcu), 'awake')
     
     i.tokens = str(tok)
     db.session.add(i)
