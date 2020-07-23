@@ -97,12 +97,12 @@ def index():
     return render_template('index.html')
 
 @app.route('/login')
-def login():
+def login(prompt=None):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     google = get_google_auth()
     auth_url, state = google.authorization_url(
-        Auth.AUTH_URI, access_type='offline')
+        Auth.AUTH_URI, access_type='offline',prompt=prompt)
     session['oauth_state'] = state
     return render_template('login.html', auth_url=auth_url)
 
@@ -138,6 +138,12 @@ def callback():
             user_data = resp.json()
             email = user_data['email']
             user = User.query.filter_by(email=email).first()
+            if user is not None:
+                prev_tok = json.loads(user.tokens)
+                if 'refresh_token' not in token:
+                    if 'refresh_token' not in prev_tok:
+                        return ('Please Login again' + login('consent') )
+                    token['refresh_token'] = prev_tok['refresh_token']
             # print("User checkinggggggggggggg")
             if user is None:
                 # print("User not present previously")
