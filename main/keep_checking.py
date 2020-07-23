@@ -140,6 +140,9 @@ def start():
 			continue
 
 if __name__=='__main__':
-	while(True):
+	i=15
+	while(i > 0):
 		start()
+		print("i=",i)
+		i = i-1
 		time.sleep(300)
