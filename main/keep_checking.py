@@ -142,4 +142,4 @@ def start():
 if __name__=='__main__':
 	while(True):
 		start()
-		time.sleep(900)
+		time.sleep(300)

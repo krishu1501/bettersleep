@@ -3,9 +3,9 @@
 
 from datetime import datetime
 import json
+import ast
 from flask import Flask, render_template, url_for, redirect , request, session
 from flask_sqlalchemy import SQLAlchemy
-# from forms import RegistrationForm, LoginForm
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required ,UserMixin
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import HTTPError
@@ -121,7 +121,7 @@ def callback():
     else:
         # Execution reaches here when user has
         # successfully authenticated our app.
-        # Refresh token received included in the redirect URL
+        # authorization code if received, included in the redirect URL
 
         google = get_google_auth(state=session['oauth_state'])
         try:
@@ -139,7 +139,7 @@ def callback():
             email = user_data['email']
             user = User.query.filter_by(email=email).first()
             if user is not None:
-                prev_tok = json.loads(user.tokens)
+                prev_tok = ast.literal_eval(user.tokens)
                 if 'refresh_token' not in token:
                     if 'refresh_token' not in prev_tok:
                         return ('Please Login again' + login('consent') )
