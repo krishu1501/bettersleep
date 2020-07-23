@@ -53,8 +53,7 @@ def new_access_token(refresh_token):
 ########################end of refresh token functn ##############################
 
 def toggle_light(nodemcu, state):
-  vars = nodemcu['vars']
-  vars['LED_STATUS'] = state
+  nodemcu['vars']['LED_STATUS'] = state
   headers = {
     'Content-Type': 'application/json'
   }
