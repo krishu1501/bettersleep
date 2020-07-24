@@ -107,6 +107,7 @@ def login(prompt=None):
     return render_template('login.html', auth_url=auth_url)
 
 
+@app.route('/oauth2callback')
 @app.route('/widget')
 def callback():
     # Redirect user to home page if already logged in.

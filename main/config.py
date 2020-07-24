@@ -4,10 +4,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Auth:
-    CLIENT_ID = ('552833547680-pf5eserplcmvsnmt18jp4197ru21u0u5.apps.googleusercontent.com')
-    CLIENT_SECRET = '8x44hBSsgxOwBezTqXqMbNQD'
+    CLIENT_ID = os.environ.get('CLIENT_ID')
+    CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
     # REDIRECT_URI = 'https://localhost:5000/widget'
-    REDIRECT_URI = 'https://bettersleep.herokuapp.com/widget'
+    # REDIRECT_URI = 'https://bettersleep.eu-gb.mybluemix.net/widget'
+    REDIRECT_URI = os.environ.get('REDIRECT_URI')
     AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
     TOKEN_URI = 'https://oauth2.googleapis.com/token'
     USER_INFO = 'https://www.googleapis.com/userinfo/v2/me'
@@ -17,7 +18,7 @@ class Auth:
 
 
 class Config:
-    APP_NAME = "local host app"
+    APP_NAME = "sleep-app"
     SECRET_KEY = os.environ.get("SECRET_KEY") or "somethingsecret"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -30,7 +31,7 @@ class DevConfig(Config):
 class ProdConfig(Config):
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('VCAP_SERVICES')
 
 
 config = {
