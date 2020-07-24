@@ -139,9 +139,4 @@ def start():
 			continue
 
 if __name__=='__main__':
-	i=3
-	while(i > 0):
-		start()
-		print("i=",i)
-		i = i-1
-		time.sleep(300)
+	start()
