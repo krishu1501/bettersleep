@@ -1,0 +1,5 @@
+---
+applications:
+ - name: bettersleep
+   host: bettersleep
+   memory: 128M
