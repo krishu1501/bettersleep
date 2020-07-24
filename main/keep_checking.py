@@ -139,7 +139,7 @@ def start():
 			continue
 
 if __name__=='__main__':
-	i=15
+	i=3
 	while(i > 0):
 		start()
 		print("i=",i)
