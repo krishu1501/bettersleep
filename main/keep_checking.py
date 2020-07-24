@@ -98,6 +98,7 @@ def start():
 		    #   continue
 		    tok = ast.literal_eval(i.tokens)
 		    ctime = int(calendar.timegm(time.strptime(str(i.created_at), '%Y-%m-%d %H:%M:%S.%f')))
+		    # ctime = int(calendar.timegm((i.created_at).utctimetuple()))
 		    # ctime = (int)((i.created_at).timestamp())
 		    # ctime is in sec
 		    # if atleat 15 min left to expire
