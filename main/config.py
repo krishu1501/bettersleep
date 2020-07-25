@@ -35,24 +35,24 @@ class ProdConfig(Config):
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
     # null = 'null'
-    st = str(os.environ.get('DB_PATH'))
+    # st = str(os.environ.get('DB_PATH'))
 
-    headers = {
-    'Content-Type': 'application/json'
-    }
-    payload = "{\"123\":\"%s\"}" % (st)
-    url = "https://nodemcu-2da43.firebaseio.com/.json"
-    resp = requests.patch(url=url, headers=headers, data=payload)
+    # headers = {
+    # 'Content-Type': 'application/json'
+    # }
+    # payload = "{\"123\":\"%s\"}" % (st)
+    # url = "https://nodemcu-2da43.firebaseio.com/.json"
+    # resp = requests.patch(url=url, headers=headers, data=payload)
 
-    print( "from env : %s" % (st) )
-    # st = st1.replace('null','None')
-    # VCAP_SERVICES = ast.literal_eval(st1)
-    VCAP = ast.literal_eval(st)
-    username = VCAP["username"]
-    password = VCAP["password"]
-    host = VCAP["host"]
-    port = VCAP["port"]
-    database = VCAP["db"]
+    # print( "from env : %s" % (st) )
+    # # st = st1.replace('null','None')
+    # # VCAP_SERVICES = ast.literal_eval(st1)
+    # VCAP = ast.literal_eval(st)
+    username = os.environ.get("username")
+    password = os.environ.get("password")
+    host = os.environ.get("host")
+    port = int(os.environ.get("portn"))
+    database = os.environ.get("database")
     schema = os.environ.get("schema")
     SQLALCHEMY_DATABASE_URI = f'ibm_db_sa+pyodbc400://{username}:{password}@{host}:{port}/{database};currentSchema={schema}'
     # SQLALCHEMY_DATABASE_URI = os.environ.get('VCAP_SERVICES')
