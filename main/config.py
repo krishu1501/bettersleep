@@ -1,7 +1,6 @@
 import os
-import ast
-import json
-import requests
+# import ast
+# import requests
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -33,6 +32,7 @@ class DevConfig(Config):
 
 class ProdConfig(Config):
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DB_PATH')
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
     # null = 'null'
     # st = str(os.environ.get('DB_PATH'))
@@ -48,20 +48,22 @@ class ProdConfig(Config):
     # # st = st1.replace('null','None')
     # # VCAP_SERVICES = ast.literal_eval(st1)
     # VCAP = ast.literal_eval(st)
-    username = os.environ.get("username")
-    print("username : ",os.environ.get("username"))
-    password = os.environ.get("password")
-    print("password : ",os.environ.get("password"))
-    print("host : ",os.environ.get("host"))
-    host = os.environ.get("host")
-    print("portn : ",os.environ.get("portn"))
-    print("type : ",type(os.environ.get("portn")))
-    # port = int(str(os.environ.get("portn")))
-    port = 50000
-    print("type : ",type(os.environ.get("portn")))
-    database = os.environ.get("database")
-    schema = os.environ.get("schema")
-    SQLALCHEMY_DATABASE_URI = f'ibm_db_sa+pyodbc400://{username}:{password}@{host}:{port}/{database};currentSchema={schema}'
+    # username = os.environ.get("username")
+    # print("username : ",os.environ.get("username"))
+    # password = os.environ.get("password")
+    # print("password : ",os.environ.get("password"))
+    # print("host : ",os.environ.get("host"))
+    # host = os.environ.get("host")
+    # print("portn : ",os.environ.get("portn"))
+    # print("type : ",type(os.environ.get("portn")))
+    # # port = int(str(os.environ.get("portn")))
+    # port = 50000
+    # print("type : ",type(os.environ.get("portn")))
+    # database = os.environ.get("database")
+    # schema = os.environ.get("schema")
+    
+    # SQLALCHEMY_DATABASE_URI = f'ibm_db_sa+pyodbc400://{username}:{password}@{host}:{port}/{database};currentSchema={schema}'
+    # SQLALCHEMY_DATABASE_URI = f'ibm_db_sa://{username}:{password}@{host}:50000/{database}'
     # SQLALCHEMY_DATABASE_URI = os.environ.get('VCAP_SERVICES')
 
 

@@ -150,6 +150,8 @@ def callback():
             # print("User checkinggggggggggggg")
             if user is None:
                 # print("User not present previously")
+                if 'refresh_token' not in token:
+                    return ('Please Login again' + login('consent') )
                 user = User()
                 user.email = email
             # print("User checkinggggggggggggg")
