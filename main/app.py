@@ -36,6 +36,7 @@ def create_app():
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config.from_object(config['prod'])
 app = create_app()
+app.app_context().push()
 db.create_all()
 # db = SQLAlchemy(app)
 # login_manager = LoginManager(app)
