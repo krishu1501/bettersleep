@@ -1,4 +1,5 @@
 import os
+import ast
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -7,7 +8,7 @@ class Auth:
     CLIENT_ID = os.environ.get('CLIENT_ID')
     CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
     # REDIRECT_URI = 'https://localhost:5000/widget'
-    # REDIRECT_URI = 'https://bettersleep.eu-gb.mybluemix.net/widget'
+    # REDIRECT_URI = 'https://bettersleep.eu-gb.mybluemix.net/oauth2callback'
     REDIRECT_URI = os.environ.get('REDIRECT_URI')
     AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
     TOKEN_URI = 'https://oauth2.googleapis.com/token'
@@ -31,13 +32,18 @@ class DevConfig(Config):
 class ProdConfig(Config):
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
-    # VCAP = (os.environ.get('VCAP_SERVICES'))["dashDB For Transactions"][0]["credentials"]
-    # username = VCAP["username"]
-    # password = VCAP["password"]
-    # host = VCAP["host"]
-    # port = VCAP["port"]
-    # dbname = VCAP["db"]
-    SQLALCHEMY_DATABASE_URI = os.environ.get('VCAP_SERVICES')
+    null = 'null'
+    st = str(os.environ.get('VCAP_SERVICES'))
+    VCAP_SERVICES = ast.literal_eval(st)
+    VCAP = VCAP_SERVICES["dashDB For Transactions"][0]["credentials"]
+    username = VCAP["username"]
+    password = VCAP["password"]
+    host = VCAP["host"]
+    port = VCAP["port"]
+    database = VCAP["db"]
+    schema = os.environ.get("schema")
+    SQLALCHEMY_DATABASE_URI = f'ibm_db_sa+pyodbc400://{username}:{password}@{host}:{port}/{database};currentSchema={schema}'
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('VCAP_SERVICES')
 
 
 config = {
