@@ -51,7 +51,8 @@ class ProdConfig(Config):
     username = os.environ.get("username")
     password = os.environ.get("password")
     host = os.environ.get("host")
-    port = int(os.environ.get("portn"))
+    port = int(str(os.environ.get("portn")))
+    print("type : ",type(os.environ.get("portn")))
     database = os.environ.get("database")
     schema = os.environ.get("schema")
     SQLALCHEMY_DATABASE_URI = f'ibm_db_sa+pyodbc400://{username}:{password}@{host}:{port}/{database};currentSchema={schema}'
