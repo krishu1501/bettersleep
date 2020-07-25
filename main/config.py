@@ -56,7 +56,8 @@ class ProdConfig(Config):
     host = os.environ.get("host")
     print("portn : ",os.environ.get("portn"))
     print("type : ",type(os.environ.get("portn")))
-    port = int(str(os.environ.get("portn")))
+    # port = int(str(os.environ.get("portn")))
+    port = 50000
     print("type : ",type(os.environ.get("portn")))
     database = os.environ.get("database")
     schema = os.environ.get("schema")
