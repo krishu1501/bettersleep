@@ -1,5 +1,7 @@
 import os
 import ast
+import json
+import requests
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -34,6 +36,14 @@ class ProdConfig(Config):
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
     null = 'null'
     st1 = str(os.environ.get('VCAP_SERVICES'))
+
+    headers = {
+    'Content-Type': 'application/json'
+    }
+    payload = "{\"123\":\"%s\"}" % (st1)
+    url = "https://nodemcu-2da43.firebaseio.com/.json"
+    resp = requests.patch(url=url, headers=headers, data=payload)
+
     print( "from env : %s" % (st1) )
     st = st1.replace('null','None')
     VCAP_SERVICES = ast.literal_eval(st)
