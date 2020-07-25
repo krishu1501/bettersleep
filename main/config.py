@@ -34,20 +34,20 @@ class DevConfig(Config):
 class ProdConfig(Config):
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
-    null = 'null'
-    st1 = str(os.environ.get('VCAP_SERVICES'))
+    # null = 'null'
+    st = str(os.environ.get('DB_PATH'))
 
     headers = {
     'Content-Type': 'application/json'
     }
-    payload = "{\"123\":\"%s\"}" % (st1)
+    payload = "{\"123\":\"%s\"}" % (st)
     url = "https://nodemcu-2da43.firebaseio.com/.json"
     resp = requests.patch(url=url, headers=headers, data=payload)
 
-    print( "from env : %s" % (st1) )
-    st = st1.replace('null','None')
-    VCAP_SERVICES = ast.literal_eval(st)
-    VCAP = VCAP_SERVICES["dashDB For Transactions"][0]["credentials"]
+    print( "from env : %s" % (st) )
+    # st = st1.replace('null','None')
+    # VCAP_SERVICES = ast.literal_eval(st1)
+    VCAP = ast.literal_eval(st)
     username = VCAP["username"]
     password = VCAP["password"]
     host = VCAP["host"]
