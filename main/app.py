@@ -175,8 +175,10 @@ def logout():
 @app.route('/mydata')
 @login_required
 def my_data():
-    user = User.query.filter_by(id=current_user.get_id()).first()
-    return User.__repr__(user)
+    # user = User.query.filter_by(id=current_user.get_id()).first()
+    # return User.__repr__(user)
+    # return User.__repr__(current_user)
+    return render_template('mydata.html',user=User.__repr__(current_user))
     
 @app.route('/users')
 # @login_required
@@ -185,7 +187,7 @@ def all_users():
     d = {'id': 'name'}
     for i in all_user:
         d[i.id] = i.name
-    return str(d)
+    return render_template('all_users.html',data=d)
 
 
 

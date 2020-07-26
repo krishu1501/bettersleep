@@ -121,7 +121,7 @@ def start():
 		    # print(i.created_at)
 
 		    endTimeMillis = int(round(time.time() * 1000))
-		    startTimeMillis = endTimeMillis - 3600000
+		    startTimeMillis = endTimeMillis - 1800000
 		    # if gFit.is_sleeping(1584157920000, 1584157920001, access_token):
 		    if gFit.is_sleeping(startTimeMillis, endTimeMillis, access_token):
 		      # print("sleeping")
@@ -140,4 +140,7 @@ def start():
 			continue
 
 if __name__=='__main__':
-	start()
+	while (True):
+		start()
+		time.sleep(1800)
+	

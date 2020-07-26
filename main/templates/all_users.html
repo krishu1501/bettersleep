@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><h3>All users</h3></title>
+</head>
+<body>
+	<p>
+		{{data}}
+	</p>
+
+	{%- if current_user.is_authenticated -%}
+	<div>
+		<a href="{{url_for('index')}}">  Home  </a>
+		<a href="{{url_for('my_data')}}">  My Data  </a>
+	</div>
+	{%- else -%}
+		<a href="{{url_for('login')}}">  Login Page  </a>
+	{%- endif -%}
+</body>
+</html>
