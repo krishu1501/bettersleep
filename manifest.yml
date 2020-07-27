@@ -1,5 +1,9 @@
 ---
 applications:
  - name: bettersleep
-   host: bettersleep
+   routes:
+   - route: bettersleep.eu-gb.mybluemix.net
    memory: 128M
+   command: gunicorn wsgi:app --preload
+   services:
+   - sqldatabase
