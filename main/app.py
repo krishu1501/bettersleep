@@ -99,6 +99,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/login')
+@app.route('/login/<prompt>')
 def login(prompt=None):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -145,7 +146,7 @@ def callback():
                 prev_tok = ast.literal_eval(user.tokens)
                 if 'refresh_token' not in token:
                     if 'refresh_token' not in prev_tok:
-                        return ('Please Login again' + login('consent') )
+                        return redirect(url_for('login',prompt='consent'))
                     token['refresh_token'] = prev_tok['refresh_token']
             # print("User checkinggggggggggggg")
             if user is None:

@@ -1,4 +1,5 @@
 import os
+import json
 # import ast
 # import requests
 
@@ -32,7 +33,13 @@ class DevConfig(Config):
 
 class ProdConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DB_PATH')
+    vcap = json.loads(os.environ.get('VCAP_SERVICES'))
+    db_cred = vcap["dashDB For Transactions"][0]["credentials"]
+    username = db_cred["username"]
+    password = db_cred["password"]
+    host = db_cred["host"]
+    portn = db_cred["port"]
+    database = db_cred["database"]
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
     # null = 'null'
     # st = str(os.environ.get('DB_PATH'))
@@ -63,7 +70,7 @@ class ProdConfig(Config):
     # schema = os.environ.get("schema")
     
     # SQLALCHEMY_DATABASE_URI = f'ibm_db_sa+pyodbc400://{username}:{password}@{host}:{port}/{database};currentSchema={schema}'
-    # SQLALCHEMY_DATABASE_URI = f'ibm_db_sa://{username}:{password}@{host}:50000/{database}'
+    SQLALCHEMY_DATABASE_URI = f'ibm_db_sa://{username}:{password}@{host}:{portn}/{database}'
     # SQLALCHEMY_DATABASE_URI = os.environ.get('VCAP_SERVICES')
 
 
