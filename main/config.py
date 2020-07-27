@@ -33,8 +33,10 @@ class DevConfig(Config):
 
 class ProdConfig(Config):
     DEBUG = True
-    vcap = json.loads(os.environ.get('VCAP_SERVICES'))
-    db_cred = vcap["dashDB For Transactions"][0]["credentials"]
+    # vcap = json.loads(os.environ['VCAP_SERVICES'])
+    # db_cred = vcap["dashDB For Transactions"][0]["credentials"]
+    db2info = json.loads(os.environ['VCAP_SERVICES'])['dashDB For Transactions'][0]
+    db_cred = db2info["credentials"]
     username = db_cred["username"]
     password = db_cred["password"]
     host = db_cred["host"]
