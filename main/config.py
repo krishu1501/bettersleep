@@ -33,16 +33,17 @@ class DevConfig(Config):
 
 class ProdConfig(Config):
     DEBUG = True
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
     # vcap = json.loads(os.environ['VCAP_SERVICES'])
     # db_cred = vcap["dashDB For Transactions"][0]["credentials"]
-    db2info = json.loads(os.environ['VCAP_SERVICES'])['dashDB For Transactions'][0]
+    db2info = json.loads(os.environ['VCAP_SERVICES'])['dashDB'][0]
     db_cred = db2info["credentials"]
     username = db_cred["username"]
     password = db_cred["password"]
     host = db_cred["host"]
     portn = db_cred["port"]
     database = db_cred["database"]
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('DB_PATH')
     # null = 'null'
     # st = str(os.environ.get('DB_PATH'))
 
