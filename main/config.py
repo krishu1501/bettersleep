@@ -42,7 +42,8 @@ class ProdConfig(Config):
     password = db_cred["password"]
     host = db_cred["host"]
     portn = db_cred["port"]
-    database = db_cred["database"]
+    database = db_cred["db"]
+    SQLALCHEMY_DATABASE_URI = f'ibm_db_sa://{username}:{password}@{host}:{portn}/{database}'
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DB_PATH')
     # null = 'null'
     # st = str(os.environ.get('DB_PATH'))
@@ -55,7 +56,7 @@ class ProdConfig(Config):
     # resp = requests.patch(url=url, headers=headers, data=payload)
     
     # SQLALCHEMY_DATABASE_URI = f'ibm_db_sa+pyodbc400://{username}:{password}@{host}:{port}/{database};currentSchema={schema}'
-    SQLALCHEMY_DATABASE_URI = f'ibm_db_sa://{username}:{password}@{host}:{portn}/{database}'
+    
     # SQLALCHEMY_DATABASE_URI = os.environ.get('VCAP_SERVICES')
 
 
