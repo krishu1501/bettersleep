@@ -7,3 +7,9 @@ applications:
    command: gunicorn wsgi:app --preload
    services:
    - sqldatabase
+applications:
+ - name: bettersleep
+   memory: 128M
+   command: python -m main.keep_checking
+   services:
+   - sqldatabase
