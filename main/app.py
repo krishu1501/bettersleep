@@ -94,7 +94,6 @@ def init_nodemcu(email):
 
 
 @app.route('/')
-@login_required
 def index():
     return render_template('index.html')
 
@@ -167,39 +166,30 @@ def callback():
             return redirect(url_for('index'))
         return 'Could not fetch your information.'
 
+@app.route('/learnm')
+def learnm():
+    return render_template('learnm.html')
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/mydata')
-@login_required
-def my_data():
-    # user = User.query.filter_by(id=current_user.get_id()).first()
-    # return User.__repr__(user)
-    # return User.__repr__(current_user)
-    return render_template('mydata.html',user=User.__repr__(current_user))
-    
-@app.route('/users')
+# @app.route('/mydata')
 # @login_required
-def all_users():
-    all_user = User.query.all()
-    d = {'id': 'name'}
-    for i in all_user:
-        d[i.id] = i.name
-    return render_template('all_users.html',data=d)
-
-
-
-# token = google.fetch_token(
-#     Auth.TOKEN_URI,
-#     client_secret=Auth.CLIENT_SECRET,
-#     authorization_response=request.url)
-
-# google = get_google_auth(token=token)
-# resp = google.get(Auth.USER_INFO)
-# print(resp.json)
-
-
+# def my_data():
+#     # user = User.query.filter_by(id=current_user.get_id()).first()
+#     # return User.__repr__(user)
+#     # return User.__repr__(current_user)
+#     return render_template('mydata.html',user=User.__repr__(current_user))
+    
+# @app.route('/users')
+# # @login_required
+# def all_users():
+#     all_user = User.query.all()
+#     d = {'id': 'name'}
+#     for i in all_user:
+#         d[i.id] = i.name
+#     return render_template('all_users.html',data=d)
 
