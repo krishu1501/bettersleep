@@ -79,7 +79,10 @@ def start():
 		    # if i.active:
 		    #   continue
 		    tok = ast.literal_eval(i.tokens)
-		    ctime = int(calendar.timegm(time.strptime(str(i.tok_created_at), '%Y-%m-%d %H:%M:%S.%f')))
+		    if i.tok_created_at:
+		    	ctime = int(calendar.timegm(time.strptime(str(i.tok_created_at), '%Y-%m-%d %H:%M:%S.%f')))
+		    else:
+		    	ctime = 0
 		    # ctime = int(calendar.timegm((i.tok_created_at).utctimetuple()))
 		    # ctime = (int)((i.tok_created_at).timestamp())
 		    # ctime is in sec
