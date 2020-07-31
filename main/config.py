@@ -16,6 +16,7 @@ class Auth:
     SCOPE = ['https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/fitness.activity.read']
     # SCOPE = ['https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email']
     # SCOPE = 'https://www.googleapis.com/auth/fitness.activity.read'
+    UPLOAD_FOLDER = 'uploads'
 
 
 class Config:
