@@ -56,7 +56,7 @@ app = create_app()
 #     tokens = db.Column(db.Text)
 #     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 #     nodemcu = db.Column(db.Text, default='')
-#     tok_created_at = db.Column(db.DateTime, default=datetime.utcnow())
+#     token_created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
 # @login_manager.request_loader
 # def load_user_from_request(request):

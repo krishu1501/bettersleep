@@ -65,7 +65,7 @@ def start():
 		  
 		try:
 		    # print("i.nodemcu" , i.nodemcu)
-		    # print("i.tok_created_at" , i.tok_created_at)
+		    # print("i.token_created_at" , i.token_created_at)
 		    # print("i.tokens" , i.tokens)
 		    # tok = ast.literal_eval(i.tokens)
 		    # print("refresh_token" , tok["refresh_token"])
@@ -79,12 +79,12 @@ def start():
 		    # if i.active:
 		    #   continue
 		    tok = ast.literal_eval(i.tokens)
-		    if i.tok_created_at:
-		    	ctime = int(calendar.timegm(time.strptime(str(i.tok_created_at), '%Y-%m-%d %H:%M:%S.%f')))
+		    if i.token_created_at:
+		    	ctime = int(calendar.timegm(time.strptime(str(i.token_created_at), '%Y-%m-%d %H:%M:%S.%f')))
 		    else:
 		    	ctime = 0
-		    # ctime = int(calendar.timegm((i.tok_created_at).utctimetuple()))
-		    # ctime = (int)((i.tok_created_at).timestamp())
+		    # ctime = int(calendar.timegm((i.token_created_at).utctimetuple()))
+		    # ctime = (int)((i.token_created_at).timestamp())
 		    # ctime is in sec
 		    # if atleat 15 min left to expire
 		    # print(int(round(time.time())))
@@ -97,13 +97,13 @@ def start():
 		    else :
 		      # print('getting new access_token')
 		      access_token, refresh_token = new_access_token(tok["refresh_token"])
-		      i.tok_created_at = datetime.utcnow()
+		      i.token_created_at = datetime.utcnow()
 		      tok["access_token"] = access_token
 		      if refresh_token != tok["refresh_token"]:
 		        tok["refresh_token"] = refresh_token
 
 		    # print("access_token" , access_token)
-		    # print(i.tok_created_at)
+		    # print(i.token_created_at)
 
 		    endTimeMillis = int(round(time.time() * 1000))
 		    startTimeMillis = endTimeMillis - 1800000

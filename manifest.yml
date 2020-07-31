@@ -11,6 +11,6 @@ applications:
    env :
      CLIENT_ID : ""
      CLIENT_SECRET : ""
-     REDIRECT_URI : ""
+     REDIRECT_URI : "https://bettersleep.eu-gb.mybluemix.net/oauth2callback"
 
 
