@@ -124,7 +124,7 @@ def start():
         db.session.add(i)
         db.session.commit()
 
-  except:
+    except:
       continue
     # except Exception as e:
     #   print(e)
