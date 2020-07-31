@@ -79,28 +79,35 @@ def start():
 		    # if i.active:
 		    #   continue
 		    tok = ast.literal_eval(i.tokens)
-		    if i.token_created_at:
-		    	ctime = int(calendar.timegm(time.strptime(str(i.token_created_at), '%Y-%m-%d %H:%M:%S.%f')))
-		    else:
-		    	ctime = 0
-		    # ctime = int(calendar.timegm((i.token_created_at).utctimetuple()))
-		    # ctime = (int)((i.token_created_at).timestamp())
-		    # ctime is in sec
-		    # if atleat 15 min left to expire
-		    # print(int(round(time.time())))
-		    # print(ctime)
-		    # if i.active:
-		    #   continue
-		    if int(round(time.time())) - ctime < 2700 :
-		      # print('access_token not expired')
-		      access_token = tok["access_token"]
-		    else :
-		      # print('getting new access_token')
-		      access_token, refresh_token = new_access_token(tok["refresh_token"])
-		      i.token_created_at = datetime.utcnow()
-		      tok["access_token"] = access_token
-		      if refresh_token != tok["refresh_token"]:
-		        tok["refresh_token"] = refresh_token
+
+		    # if i.token_created_at:
+		    # 	ctime = int(calendar.timegm(time.strptime(str(i.token_created_at), '%Y-%m-%d %H:%M:%S.%f')))
+		    # else:
+		    # 	ctime = 0
+		    # # ctime = int(calendar.timegm((i.token_created_at).utctimetuple()))
+		    # # ctime = (int)((i.token_created_at).timestamp())
+		    # # ctime is in sec
+		    # # if atleat 15 min left to expire
+		    # # print(int(round(time.time())))
+		    # # print(ctime)
+		    # # if i.active:
+		    # #   continue
+		    # if int(round(time.time())) - ctime < 2700 :
+		    #   # print('access_token not expired')
+		    #   access_token = tok["access_token"]
+		    # else :
+		    #   # print('getting new access_token')
+		    #   access_token, refresh_token = new_access_token(tok["refresh_token"])
+		    #   i.token_created_at = datetime.utcnow()
+		    #   tok["access_token"] = access_token
+		    #   if refresh_token != tok["refresh_token"]:
+		    #     tok["refresh_token"] = refresh_token
+
+		    access_token, refresh_token = new_access_token(tok["refresh_token"])
+		    i.token_created_at = datetime.utcnow()
+		    tok["access_token"] = access_token
+		    if refresh_token != tok["refresh_token"]:
+		      tok["refresh_token"] = refresh_token
 
 		    # print("access_token" , access_token)
 		    # print(i.token_created_at)
