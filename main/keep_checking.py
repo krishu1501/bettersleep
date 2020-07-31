@@ -48,15 +48,15 @@ def toggle_light(nodemcu, state):
   return nodemcu
 
 def send_time(nodemcu,state):
-	dt_now1 = datetime.now(tz=timezone(timedelta(hours=5.5)))
-	dt_now = dt_now1.strftime("%Y-%m-%d %H:%M:%S%z")
-	headers = {
-	'Content-Type': 'application/json'
-	}
-	payload = "{\"%s\":\"%s\"}" % (dt_now, state)
-	url = "%s/%s.json" % (nodemcu['url'][:-5], state)
-	resp = requests.patch(url=url, headers=headers, data=payload)
-	# print(resp.json())
+  dt_now1 = datetime.now(tz=timezone(timedelta(hours=5.5)))
+  dt_now = dt_now1.strftime("%Y-%m-%d %H:%M:%S%z")
+  headers = {
+  'Content-Type': 'application/json'
+  }
+  payload = "{\"%s\":\"%s\"}" % (dt_now, state)
+  url = "%s/%s.json" % (nodemcu['url'][:-5], state)
+  resp = requests.patch(url=url, headers=headers, data=payload)
+  # print(resp.json())
 
 ########################   main_user_functn  ###############################
 
@@ -124,7 +124,7 @@ def start():
         db.session.add(i)
         db.session.commit()
 
-	except:
+  except:
       continue
     # except Exception as e:
     #   print(e)
@@ -133,4 +133,4 @@ def start():
 if __name__=='__main__':
   while (True):
     start()
-    time.sleep(10)
+    time.sleep(1800)
