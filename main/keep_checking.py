@@ -14,31 +14,13 @@ from .models import db,User
 app = create_app()
 app.app_context().push()
 
-# app = Flask(__name__)
-# # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config.from_object(config['prod'])
-# db = SQLAlchemy(app)
-# class User(db.Model, UserMixin):
-#     __tablename__ = "users"
-#     id = db.Column(db.Integer, primary_key=True)
-#     email = db.Column(db.String(100), unique=True, nullable=False)
-#     name = db.Column(db.String(100), nullable=True)
-#     avatar = db.Column(db.String(200))
-#     active = db.Column(db.Boolean, default=True)
-#     tokens = db.Column(db.Text)
-#     created_at = db.Column(db.DateTime, default=datetime.utcnow())
-#     nodemcu = db.Column(db.Text, default='')
-#     def __repr__(self):
-#        return {'id':self.id,'email':self.email,'name':self.name,'avatar':self.avatar,'active':self.active,'token':self.tokens,'created at':self.created_at,'nodemcu':self.nodemcu}
-
 ####################### calling of refresh token function ###############################
 
 def new_access_token(refresh_token):
     data = {
       'grant_type': 'refresh_token',
-      'client_id': "552833547680-pf5eserplcmvsnmt18jp4197ru21u0u5.apps.googleusercontent.com",
-      'client_secret': "8x44hBSsgxOwBezTqXqMbNQD",
-      #   'refresh_token':"1//0grv2p2xFhVucCgYIARAAGBASNwF-L9IrlelcE5TTtkyaxnAf1T2UddBCz3egbyGLzPCBlBF1MEd3CgniF6Lauu8jgwLWSsPr0J0"
+      'client_id': os.environ.get('CLIENT_ID'),
+      'client_secret': os.environ.get('CLIENT_SECRET'),
       'refresh_token': refresh_token
     }
 
@@ -83,7 +65,7 @@ def start():
 		  
 		try:
 		    # print("i.nodemcu" , i.nodemcu)
-		    # print("i.created_at" , i.created_at)
+		    # print("i.tok_created_at" , i.tok_created_at)
 		    # print("i.tokens" , i.tokens)
 		    # tok = ast.literal_eval(i.tokens)
 		    # print("refresh_token" , tok["refresh_token"])
@@ -97,9 +79,9 @@ def start():
 		    # if i.active:
 		    #   continue
 		    tok = ast.literal_eval(i.tokens)
-		    ctime = int(calendar.timegm(time.strptime(str(i.created_at), '%Y-%m-%d %H:%M:%S.%f')))
-		    # ctime = int(calendar.timegm((i.created_at).utctimetuple()))
-		    # ctime = (int)((i.created_at).timestamp())
+		    ctime = int(calendar.timegm(time.strptime(str(i.tok_created_at), '%Y-%m-%d %H:%M:%S.%f')))
+		    # ctime = int(calendar.timegm((i.tok_created_at).utctimetuple()))
+		    # ctime = (int)((i.tok_created_at).timestamp())
 		    # ctime is in sec
 		    # if atleat 15 min left to expire
 		    # print(int(round(time.time())))
@@ -112,13 +94,13 @@ def start():
 		    else :
 		      # print('getting new access_token')
 		      access_token, refresh_token = new_access_token(tok["refresh_token"])
-		      i.created_at = datetime.utcnow()
+		      i.tok_created_at = datetime.utcnow()
 		      tok["access_token"] = access_token
 		      if refresh_token != tok["refresh_token"]:
 		        tok["refresh_token"] = refresh_token
 
 		    # print("access_token" , access_token)
-		    # print(i.created_at)
+		    # print(i.tok_created_at)
 
 		    endTimeMillis = int(round(time.time() * 1000))
 		    startTimeMillis = endTimeMillis - 1800000

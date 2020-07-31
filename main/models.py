@@ -12,7 +12,8 @@ class User(db.Model, UserMixin):
     avatar = db.Column(db.String(200))
     active = db.Column(db.Boolean, default=True)
     tokens = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow())
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     nodemcu = db.Column(db.Text, default='')
+    token_created_at = db.Column(db.DateTime, default=datetime.utcnow)
     def __repr__(self):
-       return {'id':self.id,'email':self.email,'name':self.name,'avatar':self.avatar,'active':self.active,'token':self.tokens,'created at':self.created_at,'nodemcu':self.nodemcu}
+       return {'id':self.id,'email':self.email,'name':self.name,'avatar':self.avatar,'active':self.active,'token':self.tokens,'created at':self.created_at,'nodemcu':self.nodemcu,'token created at':self.token_created_at}

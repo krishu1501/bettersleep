@@ -1,10 +1,10 @@
 # import os
 # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-
+import os
 from datetime import datetime
 import json
 import ast
-from flask import Flask, render_template, url_for, redirect , request, session
+from flask import Flask, render_template, url_for, redirect , request, session, send_from_directory, safe_join, current_app, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required ,UserMixin
 from requests_oauthlib import OAuth2Session
@@ -56,6 +56,7 @@ app = create_app()
 #     tokens = db.Column(db.Text)
 #     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 #     nodemcu = db.Column(db.Text, default='')
+#     tok_created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
 # @login_manager.request_loader
 # def load_user_from_request(request):
@@ -147,14 +148,12 @@ def callback():
                     if 'refresh_token' not in prev_tok:
                         return redirect(url_for('login',prompt='consent'))
                     token['refresh_token'] = prev_tok['refresh_token']
-            # print("User checkinggggggggggggg")
             if user is None:
                 # print("User not present previously")
                 if 'refresh_token' not in token:
                     return ('Please Login again' + login('consent') )
                 user = User()
                 user.email = email
-            # print("User checkinggggggggggggg")
             user.name = user_data['name']
             # print(token)
             user.tokens = json.dumps(token)
@@ -176,6 +175,37 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/download/<path:filename>')
+# @login_required
+def download_file(filename):
+    try:
+        if filename == 'node.txt':
+            # @login_required
+            def send_nodef(filename):
+                f_url = ast.literal_eval(current_user.nodemcu)['url']
+                filename = os.path.join(current_app.root_path, Auth.UPLOAD_FOLDER, filename)
+                f_write = os.path.join(current_app.root_path, Auth.UPLOAD_FOLDER, 'nodemcu_code.txt')
+                # filename = safe_join(Auth.UPLOAD_FOLDER,filename)
+                # f_write = safe_join(Auth.UPLOAD_FOLDER,'nodemcu_code.txt')
+                f = open(filename, 'rt')
+                f2 = open(f_write, 'wt')
+                for line in f:
+                    if '<FIREBASE_URL>' in line:
+                        print('line :',line)
+                        line = line.replace('<FIREBASE_URL>',f_url)
+                        print('yes')
+                        print('line :',line)
+                    f2.write(line)
+                f.close()
+                f2.close()
+                return send_from_directory(Auth.UPLOAD_FOLDER,filename='nodemcu_code.txt',attachment_filename='nodemcu_code.txt',as_attachment=True)
+            send_nodef = login_required(send_nodef)
+            return send_nodef(filename)
+        else:
+            return send_from_directory(Auth.UPLOAD_FOLDER,filename=filename,as_attachment=True)
+    except Exception as e:
+        return str(e)
+
 # @app.route('/mydata')
 # @login_required
 # def my_data():
@@ -184,12 +214,26 @@ def logout():
 #     # return User.__repr__(current_user)
 #     return render_template('mydata.html',user=User.__repr__(current_user))
     
-# @app.route('/users')
-# # @login_required
-# def all_users():
-#     all_user = User.query.all()
-#     d = {'id': 'name'}
-#     for i in all_user:
-#         d[i.id] = i.name
-#     return render_template('all_users.html',data=d)
+@app.route('/users')
+# @login_required
+def all_users():
+    all_user = User.query.all()
+    d = {'id': 'name'}
+    for i in all_user:
+        d[i.id] = i.name
+    return str(d)
+    # return render_template('all_users.html',data=d)
 
+@app.route('/data/<int:a>')
+def my_data(a=1):
+    # all_user = User.query.all()
+    # d = []
+    # for i in all_user:
+    #     d.append(i)
+    # return d
+    user = User.query.filter_by(id=a).first()
+    return User.__repr__(user)
+    # user = User.query.filter_by(id=current_user.get_id()).first()
+    # return User.__repr__(user)
+    # return User.__repr__(current_user)
+    # return render_template('mydata.html',user=User.__repr__(current_user))

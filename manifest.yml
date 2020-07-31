@@ -7,6 +7,7 @@ applications:
    command: gunicorn wsgi:app --preload & python -m main.keep_checking
    services:
    - sqldatabase
+   - availability-monitoring-auto
    env :
      CLIENT_ID : ""
      CLIENT_SECRET : ""
