@@ -151,7 +151,7 @@ def callback():
             if user is None:
                 # print("User not present previously")
                 if 'refresh_token' not in token:
-                    return ('Please Login again' + login('consent') )
+                    return redirect(url_for('login',prompt='consent') )
                 user = User()
                 user.email = email
             user.name = user_data['name']
@@ -165,9 +165,18 @@ def callback():
             return redirect(url_for('index'))
         return 'Could not fetch your information.'
 
-@app.route('/learnm')
-def learnm():
-    return render_template('learnm.html')
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/learnmore')
+def learnmore():
+    return render_template('learnmore.html')
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
 
 @app.route('/logout')
 @login_required

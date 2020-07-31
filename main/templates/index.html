@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/cover/">
 
     <!-- Bootstrap core CSS -->
-<link href="{{ url_for('static', filename='dist/css/bootstrap.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/dist/css/bootstrap.css') }}" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -30,7 +30,7 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='cover/cover.css') }}" rel="stylesheet">
   </head>
   <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -40,12 +40,11 @@
       <nav class="nav nav-masthead justify-content-center">
         <a class="nav-link active" href="#">Home</a>
         {% if current_user.is_authenticated %}
-          <a class="nav-link" href="#">{{current_user.name}}</a>
-          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          <a class="nav-link" href="{{ url_for('dashboard') }}">{{current_user.name}}</a>
         {% else %}
           <a class="nav-link" href="{{ url_for('login') }}">Sign In</a>
         {% endif %}
-        <a class="nav-link" href="#">About Us</a>
+        <a class="nav-link" href="{{ url_for('aboutus') }}">About Us</a>
       </nav>
     </div>
   </header>
@@ -54,7 +53,7 @@
     <h1 class="cover-heading">Sleep Well</h1>
     <p class="lead">We have built a powerful but elegant application that will take care of your sleep.</p>
     <p class="lead">
-      <a href="{{ url_for('learnm') }}" class="btn btn-lg btn-secondary">Learn more</a>
+      <a href="{{ url_for('learnmore') }}" class="btn btn-lg btn-secondary">Learn more</a>
     </p>
   </main>
 

@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Vishal,Krishna ,Saurav">
+  <meta name="generator" content="">
+  <title>Learnmore</title>
+
+  <!-- Adding font awesome stylesheet for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/jumbotron/">
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='assets/dist/css/bootstrap.css') }}" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <style>
+        body {
+          background-image: url("{{ url_for('static', filename='learnmore/images.jpg') }}");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
+      </style>
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+        </li>
+        {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('dashboard') }}">{{ current_user.name }}</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login') }}">Signin</a>
+            </li>
+        {% endif %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('learnmore') }}">Learn More <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('aboutus') }}">About Us</a>
+        </li>
+
+
+
+      </ul>
+    </div>
+  </nav>
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='learnmore/learnmore.css') }}" rel="stylesheet">
+</head>
+
+<body class="text-center">
+  <main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <style>
+      body {
+        background-image: url("{{ url_for('static', filename='learnmoreimages.jpg') }}");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+
+      .jumbotron {
+        background-image: url("{{ url_for('static', filename='learnmore/images.jpg') }}");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+
+
+    <div class="jumbotron">
+      <style>
+        body {
+          background-image: url("{{ url_for('static', filename='learnmore/image_bg.jpg') }}");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
+      </style>
+      <div class="container">
+        <h1 class="display-2">Sleep Well</h1>
+        <p>We have come up with a powerful solution that can help you get a better sleep.</p>
+      </div>
+    </div>
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img src="{{ url_for('static', filename='learnmore/table_sleep.jpg') }}" class="bd-placeholder-img rounded-circle" width="140" height="140"
+            alt="Placeholder" />
+
+          <p>There are instances when we fall asleep while working.This is not really good for our health.But thsi wont
+            be a problem any more our smart application will autommatically turn off the bulbs when you are asleep </p>
+          </p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img src="{{ url_for('static', filename='learnmore/nyctophobia.jpg') }}" class="bd-placeholder-img rounded-circle" width="140" height="140"
+            alt="Nyctophobia" />
+          <p>There are people who fer darkness.We are here to offer them help.Now you can go to bed with lights on and
+            our application will take care of the lights.All you need is to signin for the application from the signin
+            page. </p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img src="{{ url_for('static', filename='learnmore/bulb.jpg') }}" class="bd-placeholder-img rounded-circle" width="140" height="140"
+            alt="bulb" />
+
+          <p>Beacuse of sleeping with lights on a lot of electricity is wasted and thsi application can help avoid that
+            wastage.So you are saving the world while sleeping and thsi alone gives you bragging rights. Subscribe now.
+          </p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+      <hr class="featurette-divider">
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">Quite inexpensive <span class="text-muted">See for yourself.</span></h2>
+          <p class="lead">We will be using powerful but cheap hardware to run this application.You will be needing a
+            smartwatch,a nodeMcu ( which is a 4 $ wi-fi enabled hardware.),and internet connection.There shall be a one
+            time requirement of a computer with internet connection(to upload code in NodeMcu).This may seem overwalming
+            but its quite easy to setup.Once this thing will go for production we can go for preinstralled modules.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img src="{{ url_for('static', filename='learnmore/inexpensive.jpg') }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+            width="500" height="500" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        </div>
+      </div>
+
+
+
+
+
+      <hr>
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Really simple to setup <span class="text-muted">It’ll blow your mind.</span>
+          </h2>
+          <p class="lead">This is the prototype phase,but nonetheless , we have tried to make the setup procedure as
+            simple as possible.Whole procedure to setup this application is providesd in a extensive user mannual.All
+            you will nead to do is to follow the setup mannual and you are good to go.In case of problems will be always
+            happy to hear from you.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img src="{{ url_for('static', filename='learnmore/prototyping.jpg') }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+            width="500" height="500" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+    <hr class="featurette-divider">
+
+  </main>
+
+  <footer class="container">
+    <p>&hearts; Sourav Krishna Vishal</p>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='assets/js/vendor/jquery.slim.min.js') }}"><\/script>')</script>
+  <script src="{{ url_for('static', filename='assets/dist/js/bootstrap.bundle.js') }}"></script>
+</body>
+
+</html>

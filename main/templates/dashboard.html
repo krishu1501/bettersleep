@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Vishal,Krishna ,Saurav">
+    <meta name="generator" content="">
+    <title>Dashboard</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/offcanvas/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{{ url_for('static', filename='assets/dist/css/bootstrap.css') }}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <style>
+          body {
+            background-image: url("{{ url_for('static', filename='dashboard/images.jpg') }}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+          }
+        </style>
+        <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+        </li>
+        {% if current_user.is_authenticated %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('dashboard') }}"> {{ current_user.name }} <span class="sr-only">(current)</span></a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login') }}">Signin</a>
+            </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('learnmore') }}">Learn More</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('aboutus') }}">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        </li>
+
+
+        </ul>
+      </div>
+    </nav>
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='dashboard/offcanvas.css') }}" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    
+    <div class="nav-scroller bg-white shadow-sm">
+      <nav class="nav nav-underline">
+        <a class="nav-link active">Dashboard</a>
+      </nav>
+    </div>
+<main role="main" class="container">
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+    <img class="bd-placeholder-img rounded-circle" src="{{ current_user.avatar }}" alt="" width="48" height="48">
+    <div class="lh-100">
+      <h6 class="mb-0 text-white lh-100">{{ current_user.name }}</h6>
+      <small>{{ current_user.email }}</small>
+    </div>
+  </div>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Details</h6>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">Node Mcu code</strong>
+          <a href="{{ url_for('download_file',filename='node.txt') }}">Download</a>
+        </div>
+      </div>
+    </div>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">User Manual</strong>
+          <a href="{{ url_for('download_file',filename='manual.txt') }}">Dowmload</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='assets/js/vendor/jquery.slim.min.js') }}"><\/script>')</script>
+  <script src="{{ url_for('static', filename='assets/dist/js/bootstrap.bundle.js') }}"></script>
+        <script src="{{ url_for('static', filename='dashboard/offcanvas.js') }}"></script></body>
+</html>
