@@ -87,6 +87,7 @@ def init_nodemcu(email):
         if 48<=ord(ch)<=57 or 65<=ord(ch)<=90 or 97<=ord(ch)<=122 :
             username+=ch
     d = {
+        'nodemcu_user' : username,
         'project_id' : project_id,
         'vars' : {"LED_STATUS":0},
         'url' : 'https://'+ project_id +'.firebaseio.com/'+str(username)+ '.json'
@@ -191,7 +192,7 @@ def download_file(filename):
         if filename == 'node.txt':
             # @login_required
             def send_nodef(filename):
-                f_url = ast.literal_eval(current_user.nodemcu)['url']
+                nodemcu_user = ast.literal_eval(current_user.nodemcu)['nodemcu_user']
                 filename = os.path.join(current_app.root_path, Auth.UPLOAD_FOLDER, filename)
                 f_write = os.path.join(current_app.root_path, Auth.UPLOAD_FOLDER, 'nodemcu_code.txt')
                 # filename = safe_join(Auth.UPLOAD_FOLDER,filename)
@@ -199,8 +200,8 @@ def download_file(filename):
                 f = open(filename, 'rt')
                 f2 = open(f_write, 'wt')
                 for line in f:
-                    if '<FIREBASE_URL>' in line:
-                        line = line.replace('<FIREBASE_URL>',f_url)
+                    if '<NODEMCU_USER>' in line:
+                        line = line.replace('<NODEMCU_USER>',nodemcu_user)
                     f2.write(line)
                 f.close()
                 f2.close()
