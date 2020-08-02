@@ -124,10 +124,10 @@ def start():
         db.session.add(i)
         db.session.commit()
 
-    except:
-      continue
-    # except Exception as e:
-    #   print(e)
+    # except:
+    #   continue
+    except Exception as e:
+      print(e)
       
 
 if __name__=='__main__':

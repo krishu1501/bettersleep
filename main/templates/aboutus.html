@@ -43,7 +43,7 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <style>
         body {
-          background-image: url('../static/aboutus/images.jpg');
+          background-image: url("{{ url_for('static', filename='aboutus/images.jpg') }}");
           background-repeat: no-repeat;
           background-attachment: fixed;
           background-size: cover;
@@ -60,7 +60,7 @@
             </li>
         {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('login') }}">Signin</a>
+              <a class="nav-link" href="{{ url_for('login') }}">Sign in</a>
             </li>
         {% endif %}
         <li class="nav-item">
@@ -107,7 +107,7 @@
         }
       </style>
       <div class="container">
-        <h1 class="display-2">Team Rocket</h1>
+        <h1 class="display-5">Team TECH_CONTROL</h1>
         <p>Lets see if team rocket wins this time.</p>
       </div>
     </div>
@@ -158,22 +158,13 @@
       <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">A long journey<span class="text-muted"> indeed</span></h2>
-          <p class="lead">While registering for the event no one would have thought that thsi event would last so long.
-            Having qualified fo ridea submission , we were very excited , a lot of ideas popped into our mind,some
-            seemingingly difficult some easy, members put up a lot of ideas on the table, one said may be we can develop
-            a software that would find the safest path to travel from a source to destination, the other that may be we
-            could develop a automated drone that could tackle a enemy drone swarm, one will admit that ideas were
-            diverse, at a point we were considering to build a catapult powered drone for last mile delivery of amazon
-            packets. We were ambitious indeed. Lastly we decided to bulild somthing that would benifit common ppeople, a
-            application that would simply turn off the light if you a tired of work and falls asleep on table.. what
-            does a man desire when he is so tired that he falls asleep ? that some one turns that bulb off. This stuck
-            to us as a great idea . Something that has novelty and nobility in it.The idea that made us wonder whether
-            thsi idea will even qualify for the first round of teh competition.But we then finalized it.Thinking that
-            afterall all simple things ate not trivial.Surely, we qualified the idea submission and also the proof of
-            concep round. </p>
+          <p class="lead">While registering for the event no one would have thought that this event would last so long.<br>
+            Having qualified for idea submission, we were very excited, a lot of ideas popped into our mind, some seemingly difficult some easy, members put up a lot of ideas on the table, one said maybe we can develop a software that would find the safest path to travel from a source to destination, the other that maybe we could develop an automated drone that could tackle an enemy drone swarm, one will admit that ideas were diverse, at a point we were considering to build a catapult powered drone for last-mile delivery of amazon packets. We were ambitious indeed. Lastly, we decided to build something that would benefit common people, an application that would simply” turn off the light”. What does a man desire when he is so tired that he falls asleep? that someone turns that bulb off. This stuck to us as a great idea. Something that has novelty and nobility in it.The idea that made us wonder whether this idea will even qualify for the first round of the competition. But we then finalized it. Thinking that after all simple things that not always trivial. Surely, we qualified for the idea submission and also the proof of concept round. We believe that this seemingly simple idea can make a lot of difference in the life of people who suffer from nyctophobia or similar disorders. <br>
+We are proud of being able to develop a prototype of our application.
+          </p>
         </div>
         <div class="col-md-5">
-          <img src="{{ url_for('static', filename='aboutus/journey.jpeg') }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+          <img src="{{ url_for('static', filename='aboutus/journey.jpg') }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
             width="500" height="500" xmlns="http://www.w3.org/2000/svg" focusable="false">
 
             <!-- <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text> -->
@@ -186,8 +177,10 @@
       <div class="row featurette">
         <div class="col-md-7 order-md-2">
           <h2 class="featurette-heading">Thankyou note <span class="text-muted">Yes..</span></h2>
-          <p class="lead">We are really thankful to everyone . We came to understand that , planning a project is one
-            thing and developing it is completly different.</p>
+          <p class="lead">We are thankful to everyone who helped us in completing this project, Our teachers, to whom we owe the greatest respect, for making us curious and knowledgable enough that we were able to complete this project.<br> We owe our thanks to our parents for all they have given us .we would sincerely like to thanks Deloitte for seeing the potential in this idea which was quite an inspiration for us.
+Developing this project was not easy, we had to iterate again and. This project consisted of many subparts, namely embedded systems, backend development, frontend development, then we also had to study about Google firebase, IBM server. But we were able to sail through all these challenges and were finally able to complete this project.
+Had it not been the good wishes of the people mentioned above, we are quite sure, completing this project would have been a bigger challenge.
+</p>
         </div>
         <div class="col-md-5 order-md-1">
           <img src="{{ url_for('static', filename='aboutus/thanks.jpg') }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"

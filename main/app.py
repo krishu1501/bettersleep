@@ -200,10 +200,7 @@ def download_file(filename):
                 f2 = open(f_write, 'wt')
                 for line in f:
                     if '<FIREBASE_URL>' in line:
-                        print('line :',line)
                         line = line.replace('<FIREBASE_URL>',f_url)
-                        print('yes')
-                        print('line :',line)
                     f2.write(line)
                 f.close()
                 f2.close()
