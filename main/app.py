@@ -97,7 +97,7 @@ def init_nodemcu(email):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html',title='Home')
 
 @app.route('/login')
 @app.route('/login/<prompt>')
@@ -108,7 +108,7 @@ def login(prompt=None):
     auth_url, state = google.authorization_url(
         Auth.AUTH_URI, access_type='offline',prompt=prompt)
     session['oauth_state'] = state
-    return render_template('login.html', auth_url=auth_url)
+    return render_template('login.html', auth_url=auth_url,title='Sign in')
 
 
 @app.route('/oauth2callback')
@@ -169,15 +169,15 @@ def callback():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html',title='Dashboard')
 
 @app.route('/learnmore')
 def learnmore():
-    return render_template('learnmore.html')
+    return render_template('learnmore.html',title='Learn More')
 
 @app.route('/aboutus')
 def aboutus():
-    return render_template('aboutus.html')
+    return render_template('aboutus.html',title='About Us')
 
 @app.route('/logout')
 @login_required
