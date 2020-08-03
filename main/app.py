@@ -231,16 +231,7 @@ def all_users():
     return str(d)
     # return render_template('all_users.html',data=d)
 
-@app.route('/data/<int:a>')
-def my_data(a=1):
-    # all_user = User.query.all()
-    # d = []
-    # for i in all_user:
-    #     d.append(i)
-    # return d
-    user = User.query.filter_by(id=a).first()
-    return User.__repr__(user)
-    # user = User.query.filter_by(id=current_user.get_id()).first()
-    # return User.__repr__(user)
-    # return User.__repr__(current_user)
-    # return render_template('mydata.html',user=User.__repr__(current_user))
+# @app.route('/data/<int:a>')
+# def my_data(a=1):
+#     user = User.query.filter_by(id=a).first()
+#     return User.__repr__(user)
