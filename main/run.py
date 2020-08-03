@@ -2,7 +2,7 @@ import os
 # from .app import create_app
 from main.app import app
 
-# app = create_app()
+# app = create_app() 
 # app.app_context().push()
 
 # app.secret_key = os.urandom(16)
