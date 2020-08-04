@@ -8,8 +8,6 @@
     <meta name="generator" content="">
     <title>Bettersleep {% if title %}· {{ title }} {% endif %}</title>
 
-    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/offcanvas/"> -->
-
     <!-- Bootstrap core CSS -->
 <link href="{{ url_for('static', filename='assets/dist/css/bootstrap.css') }}" rel="stylesheet">
 
@@ -36,14 +34,6 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <!-- <style>
-          body {
-            background-image: url("{{ url_for('static', filename='dashboard/images.jpg') }}");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-          }
-        </style> -->
         <ul class="navbar-nav mr-auto">
 
         <li class="nav-item {% if title=='Home' %}active{% endif %}">
