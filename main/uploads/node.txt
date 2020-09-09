@@ -44,14 +44,14 @@ n = Firebase.getInt("<NODEMCU_USER>/LED_STATUS");
 // handle error
 if (n==1) {
 Serial.println("LED ON");
-digitalWrite(D1,HIGH);  
+digitalWrite(D1,LOW);  
 return;
 delay(100);
 }
 else {
 delay(100);
 Serial.println("LED OFF");
-digitalWrite(D1,LOW);  
+digitalWrite(D1,HIGH);  
 return;
 }
 }

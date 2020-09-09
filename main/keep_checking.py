@@ -22,7 +22,6 @@ def new_access_token(refresh_token):
       'grant_type': 'refresh_token',
       'client_id': os.environ.get('CLIENT_ID'),
       'client_secret': os.environ.get('CLIENT_SECRET'),
-      #   'refresh_token':"1//0grv2p2xFhVucCgYIARAAGBASNwF-L9IrlelcE5TTtkyaxnAf1T2UddBCz3egbyGLzPCBlBF1MEd3CgniF6Lauu8jgwLWSsPr0J0"
       'refresh_token': refresh_token
     }
 
