@@ -74,7 +74,6 @@ def start():
         # print("i.tokens" , i.tokens)
         # tok = ast.literal_eval(i.tokens)
         # print("refresh_token" , tok["refresh_token"])
-        # tok['refresh_token'] = '1//0gLCiGWGZiCcoCgYIARAAGBASNwF-L9IrBDx2rcyoZIyDuhTZqEcwgG7PUxz2xESgtgdxBaJ6WEACnoD9TmdZw7qr8qCBO7weiiI'
         # i.tokens = str(tok)
         # db.session.add(i)
         # db.session.commit()
