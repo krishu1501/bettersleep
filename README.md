@@ -1,5 +1,5 @@
 # Bettersleep
-Bettersleep is a *web app using IoT*, that improves the quality of sleep of a user, by **automatically** switching OFF their room lights if they fall asleep without switching it OFF. 
+Bettersleep is a *Web App using IoT*, that improves the quality of sleep of a user, by **automatically** switching OFF their room lights if they fall asleep without switching it OFF. 
 
 `Sounds cool?`
 
