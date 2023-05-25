@@ -31,17 +31,19 @@ class DevConfig(Config):
 
 
 class ProdConfig(Config):
-    DEBUG = True
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
-    db2info = json.loads(os.environ['VCAP_SERVICES'])
-    db_cred = db2info["dashDB For Transactions"][0]["credentials"]
-    username = db_cred["username"]
-    password = db_cred["password"]
-    host = db_cred["host"]
-    portn = db_cred["port"]
-    database = db_cred["db"]
-    SQLALCHEMY_DATABASE_URI = f'ibm_db_sa://{username}:{password}@{host}:{portn}/{database}'
-
+    try:
+        DEBUG = True
+        # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "prod.db")
+        db2info = json.loads(os.environ['VCAP_SERVICES'])
+        db_cred = db2info["dashDB For Transactions"][0]["credentials"]
+        username = db_cred["username"]
+        password = db_cred["password"]
+        host = db_cred["host"]
+        portn = db_cred["port"]
+        database = db_cred["db"]
+        SQLALCHEMY_DATABASE_URI = f'ibm_db_sa://{username}:{password}@{host}:{portn}/{database}'
+    except Exception as e:
+        print('Error in configuring prod env variables: ' + str(e))
 
 config = {
     "dev": DevConfig,
